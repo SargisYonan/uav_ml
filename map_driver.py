@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import time
 import knn
+from random import *
 
 grid_size = 50
 hotspot_threshold = 0
@@ -18,6 +19,7 @@ hot_coordinates = []
 cold_coordinates = []
 max_poi_strength = 20
 ignore_size = 3
+uav_list = []
 
 class _uav:
 	map = -1 * np.ones(shape=(grid_size, grid_size))
@@ -30,9 +32,14 @@ class _uav:
 		self.last_pos = []
 		collective_map[origin_lat, origin_long] = master_map[origin_lat, origin_long]
 
-uav_one = _uav('Drone 1', 0, 0)
-uav_two = _uav('Drone 2', 35, 0)
-uav_three = _uav('Drone 3', 11, 12)
+
+
+def initialize_uavs(num_of_uavs):
+	for i in range(num_of_uavs):
+		rand_lat = randint(0, grid_size - 1)
+		rand_long = randint(0, grid_size - 1)
+
+		uav_list.append(_uav('Drone ' + str(i), rand_lat, rand_long))
 
 def uav_change_coordinates(uav, longitude, latitude):
 	uav.last_pos.append([latitude, longitude])
@@ -323,9 +330,9 @@ def classify_drone_directions_w_potentials(uav):
 		uav_change_coordinates(uav, move_to_long, move_to_lat)
 
 def generate_data():
-	classify_drone_directions_w_potentials(uav_one)
-	classify_drone_directions_w_potentials(uav_two)
-	classify_drone_directions_w_potentials(uav_three)
+	for uav in uav_list:
+		classify_drone_directions_w_potentials(uav)
+	
 	knn.predict_map(hot_coordinates, cold_coordinates)
 
 def data_gen():
