@@ -1,3 +1,6 @@
+See AutonomousPod-BasedUAVTrajectoryPredictionForExpeditedHeatSeeking.pdf for more info.
+
+
 A fire was placed at these coordinates:
 </br>
 ![master_map](https://github.com/SargisYonan/uav_ml/blob/master/master_map.png?raw=true)
