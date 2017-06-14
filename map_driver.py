@@ -35,11 +35,12 @@ class _uav:
 
 
 def initialize_uavs(num_of_uavs):
-	for i in range(num_of_uavs):
+	for i in range(num_of_uavs - 1):
 		rand_lat = randint(0, grid_size - 1)
 		rand_long = randint(0, grid_size - 1)
 
 		uav_list.append(_uav('Drone ' + str(i), rand_lat, rand_long))
+	uav_list.append(_uav('Drone ' + str(i), 25, 25))
 
 def uav_change_coordinates(uav, longitude, latitude):
 	uav.last_pos.append([latitude, longitude])
